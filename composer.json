@@ -1,5 +1,5 @@
 {
-  "name": "techdivision/index-suspender",
+  "name": "techdivision/index_suspender",
   "description": "Allows to suspend regular indexing processes during a specific task.",
   "require": {
     "magento/framework": "100.1.*"
