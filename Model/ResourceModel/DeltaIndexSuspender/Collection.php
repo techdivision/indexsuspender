@@ -13,7 +13,7 @@
 namespace TechDivision\IndexSuspender\Model\ResourceModel\DeltaIndexSuspender;
 
 use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
-use TechDivision\IndexSuspender\Model\IndexSuspender;
+use TechDivision\IndexSuspender\Model\DeltaIndexSuspender;
 use TechDivision\IndexSuspender\Model\ResourceModel\DeltaIndexSuspender as DeltaIndexSuspenderResource;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
@@ -32,7 +32,7 @@ class Collection extends AbstractCollection
 
     protected function _construct()
     {
-        $this->_init(IndexSuspender::class, DeltaIndexSuspenderResource::class);
+        $this->_init(DeltaIndexSuspender::class, DeltaIndexSuspenderResource::class);
     }
 
     /**
