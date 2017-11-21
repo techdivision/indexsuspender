@@ -24,7 +24,7 @@ use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
  * @link       http://www.techdivision.com/
  * @author     Vadim Justus <v.justus@techdivision.com>
  */
-class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterface 
+class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterface
 {
     private $jobCodesToSuspend = [
         'indexer_reindex_all_invalid',
