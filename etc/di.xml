@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2016 TechDivision GmbH
+ * All rights reserved
+ *
+ * This product includes proprietary software developed at TechDivision GmbH, Germany
+ * For more information see http://www.techdivision.com/
+ *
+ * To obtain a valid license for using this software please contact us at
+ * license@techdivision.com
+ *
+ * @category   TechDivision
+ * @package    TechDivision_IndexSuspender
+ * @subpackage etc
+ * @copyright  Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
+ * @link       http://www.techdivision.com/
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Add modules functionality to indexer:reindex command -->
+    <preference for="Magento\Indexer\Console\Command\IndexerReindexCommand" type="TechDivision\IndexSuspender\Console\IndexerReindexCommand"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="indexSuspenderList" xsi:type="object">TechDivision\IndexSuspender\Console\ListCommand</item>
+                <item name="indexSuspenderResume" xsi:type="object">TechDivision\IndexSuspender\Console\ResumeAllCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="TechDivision/IndexSuspender/Api/DeltaIndexSuspenderInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">techdivision_index_suspended</item>
+                    <item name="identifierField" xsi:type="string">index_suspender_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Evaluate active suspenders and prevent delta index to be triggerd.  -->
+    <type name="Magento\Cron\Model\Schedule">
+        <plugin name="techdivision.indexsuspender.cron" type="TechDivision\IndexSuspender\Plugin\DeltaIndexerPlugin"/>
+    </type>
+</config>

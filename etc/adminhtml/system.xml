@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+ ~ Copyright (c) 2017 TechDivision GmbH
+ ~ All rights reserved
+ ~
+ ~ This product includes proprietary software developed at TechDivision GmbH, Germany
+ ~ For more information see http://www.techdivision.com/
+ ~
+ ~ To obtain a valid license for using this software please contact us at
+ ~ license@techdivision.com
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="techdivision" translate="label" sortOrder="1000">
+            <label>TechDivision</label>
+        </tab>
+        <section id="techdivision_indexsuspender" translate="label" type="text" sortOrder="150" showInDefault="1">
+            <label>Index Suspender</label>
+            <tab>techdivision</tab>
+            <resource>TechDivision_IndexSuspender::config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="0">
+                    <label>Enable module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_delta" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="0">
+                    <label>Enable suspending of DeltaIndex</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
