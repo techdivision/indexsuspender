@@ -57,6 +57,7 @@ class DeltaIndexerPlugin
     public function beforeTryLockJob(Schedule $subject)
     {
         if ($this->shouldSuspendCronJob($subject)) {
+            $subject->setStatus(Schedule::STATUS_MISSED);
             throw new PreventJobExecutionException(__('TechDivision IndexSuspender cancelled job execution.'));
         }
     }
