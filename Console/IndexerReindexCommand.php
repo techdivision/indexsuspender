@@ -45,6 +45,14 @@ class IndexerReindexCommand extends CoreIndexerReindexCommand
     }
 
     /**
+     * @return DeltaIndexSuspender
+     */
+    public function getDeltaIndexSuspender()
+    {
+        return $this->deltaIndexSuspender;
+    }
+
+    /**
      * Suspend all delta indexers during magento indexer:reindex command.
      *
      * @param InputInterface $input
