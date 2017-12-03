@@ -94,8 +94,10 @@ class SuspendManager
 
             if ($view->getState()->getMode() == StateInterface::MODE_ENABLED) {
 
-                $this->resetMViewState($view);
-                $this->resetMViewChangelog($view);
+                $state = $view->getState();
+                $changelog = $view->getChangelog();
+                $state->setVersionId($changelog->getVersion());
+                $state->save();
             }
         }
     }
@@ -133,26 +135,7 @@ class SuspendManager
 
         return $allViews;
     }
-
-    /**
-     * @param ViewInterface $view
-     */
-    private function resetMViewState(ViewInterface $view)
-    {
-        $state = $view->getState();
-        $state->setVersionId("0");
-        $state->save();
-    }
-
-    /**
-     * @param ViewInterface $view
-     */
-    private function resetMViewChangelog(ViewInterface $view)
-    {
-        $changelog = $view->getChangelog();
-        $changelog->clear(static::SQL_INT_MAX + 1);
-    }
-
+    
     /**
      * Clears all suspenders from all processes.
      */
