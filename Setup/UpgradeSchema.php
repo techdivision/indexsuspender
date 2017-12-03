@@ -12,12 +12,11 @@
 
 namespace TechDivision\IndexSuspender\Setup;
 
-use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use TechDivision\IndexSuspender\Api\Constants;
+use Magento\Framework\Setup\UpgradeSchemaInterface;
 
 /**
  * Class InstallSchema
@@ -28,26 +27,21 @@ use TechDivision\IndexSuspender\Api\Constants;
  * @site        https://www.techdivision.com/
  * @author      David Führ <d.fuehr@techdivision.com>
  */
-class InstallSchema implements InstallSchemaInterface
+class UpgradeSchema implements UpgradeSchemaInterface
 {
     /**
-     * {@inheritdoc}
-     * @throws \Zend_Db_Exception
+     * Upgrades DB schema for a module
+     *
+     * @param SchemaSetupInterface $setup
+     * @param ModuleContextInterface $context
+     * @return void
      */
-    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
 
-        $table = $setup->getConnection()->newTable($setup->getTable('techdivision_index_suspended'))->addColumn(
-            'index_suspender_id',
-            Table::TYPE_SMALLINT,
-            null,
-            ['nullable' => false, 'identity' => true, 'primary' => true, 'unsigned' => true],
-            'Index Suspender ID'
-        )->setComment('All active suspenders.');
-
-        $setup->getConnection()->createTable($table);
-
-        $setup->endSetup();
+        if (version_compare($context->getVersion(), '0.3.0') < 0) {
+            $setup->getConnection()->dropTable('techdivision_index_suspended');
+        }
     }
 }

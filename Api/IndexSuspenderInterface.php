@@ -22,8 +22,6 @@ namespace TechDivision\IndexSuspender\Api;
  */
 interface IndexSuspenderInterface
 {
-    const INDEX_SUSPENDER_ID = 'index_suspender_id';
-
     /**
      * Suspends all related indexing processes.
      *

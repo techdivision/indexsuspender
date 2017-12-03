@@ -67,12 +67,12 @@ class Config extends AbstractHelper
     }
 
     /**
-     * Check whether module and delta indexer feature are enabled.
+     * Check whether module and indexer feature are enabled.
      *
      * @return bool
      */
-    public function getDeltaIndexerEnabled()
+    public function getIndexerEnabled()
     {
-        return $this->getModuleConfig('general/enable') && $this->getModuleConfig('general/enable_delta');
+        return $this->getModuleConfig('general/enable') && $this->getModuleConfig('general/enable_index');
     }
 }
