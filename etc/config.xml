@@ -14,7 +14,7 @@
         <techdivision_indexsuspender>
             <general>
                 <enable>1</enable>
-                <enable_index>1</enable_index>
+                <enable_delta>1</enable_delta>
             </general>
         </techdivision_indexsuspender>
     </default>

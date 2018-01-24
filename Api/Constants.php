@@ -20,21 +20,7 @@ namespace TechDivision\IndexSuspender\Api;
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
-interface IndexSuspenderInterface
+interface Constants
 {
-    const INDEX_SUSPENDER_ID = 'index_suspender_id';
-
-    /**
-     * Suspends all related indexing processes.
-     *
-     * @return void
-     */
-    public function suspend();
-
-    /**
-     * Resumes all suspended indexing processes.
-     *
-     * @return void
-     */
-    public function resume();
+    const DB_TABLE_NAME = 'techdivision_index_suspended';
 }

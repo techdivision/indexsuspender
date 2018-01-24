@@ -22,7 +22,7 @@ use Magento\Framework\Exception\LocalizedException;
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
-class LockException extends LocalizedException
+class PreventJobExecutionException extends LocalizedException
 {
 
 }

@@ -19,11 +19,31 @@
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <type name="\Magento\Framework\Mview\ActionInterface">
-        <plugin name="techdivision.indexsuspender.mviewaction" type="TechDivision\IndexSuspender\Plugin\ActionPlugin"/>
-    </type>
-    <type name="\Magento\Framework\Indexer\ActionInterface">
-        <plugin name="techdivision.indexsuspender.indexeraction" type="TechDivision\IndexSuspender\Plugin\ActionPlugin"/>
+    <!-- Add modules functionality to indexer:reindex command -->
+    <preference for="Magento\Indexer\Console\Command\IndexerReindexCommand" type="TechDivision\IndexSuspender\Console\IndexerReindexCommand"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="indexSuspenderList" xsi:type="object">TechDivision\IndexSuspender\Console\ListCommand</item>
+                <item name="indexSuspenderResume" xsi:type="object">TechDivision\IndexSuspender\Console\ResumeAllCommand</item>
+            </argument>
+        </arguments>
     </type>
 
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="TechDivision/IndexSuspender/Api/DeltaIndexSuspenderInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">techdivision_index_suspended</item>
+                    <item name="identifierField" xsi:type="string">index_suspender_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Evaluate active suspenders and prevent delta index to be triggerd.  -->
+    <type name="Magento\Cron\Model\Schedule">
+        <plugin name="techdivision.indexsuspender.cron" type="TechDivision\IndexSuspender\Plugin\DeltaIndexerPlugin"/>
+    </type>
 </config>

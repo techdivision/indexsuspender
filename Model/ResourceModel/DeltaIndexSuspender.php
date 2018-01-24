@@ -10,31 +10,24 @@
  * license@techdivision.com
  */
 
-namespace TechDivision\IndexSuspender\Api;
+namespace TechDivision\IndexSuspender\Model\ResourceModel;
+
+use TechDivision\IndexSuspender\Api\Constants;
+use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * @category   TechDivision
  * @package    IndexSuspender
- * @subpackage Api
+ * @subpackage Model
  * @copyright  Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
-interface IndexSuspenderInterface
+class DeltaIndexSuspender extends AbstractDb
 {
-    const INDEX_SUSPENDER_ID = 'index_suspender_id';
-
-    /**
-     * Suspends all related indexing processes.
-     *
-     * @return void
-     */
-    public function suspend();
-
-    /**
-     * Resumes all suspended indexing processes.
-     *
-     * @return void
-     */
-    public function resume();
+    protected function _construct()
+    {
+        $this->_init(Constants::DB_TABLE_NAME, IndexSuspenderInterface::INDEX_SUSPENDER_ID);
+    }
 }

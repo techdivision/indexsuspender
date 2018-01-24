@@ -13,7 +13,8 @@
 namespace TechDivision\IndexSuspender\Model;
 
 use Magento\Framework\Mview\View\StateInterface;
-use TechDivision\IndexSuspender\Model\IndexSuspenderFactory;
+use TechDivision\IndexSuspender\Model\ResourceModel\DeltaIndexSuspender\Collection;
+use TechDivision\IndexSuspender\Model\ResourceModel\DeltaIndexSuspender\CollectionFactory;
 use Magento\Framework\Mview\View\CollectionFactory as ViewCollectionFactory;
 use Magento\Framework\Mview\View\Collection as ViewCollection;
 use Magento\Framework\Mview\ViewInterface;
@@ -28,38 +29,46 @@ use Magento\Framework\Mview\ViewInterface;
  */
 class SuspendManager
 {
+    const SQL_INT_MAX = 4294967295;
+
+    /** @var  Collection */
+    private $deltaIndexSuspenderCollection;
     /** @var  ViewCollection */
     private $viewCollection;
-    /** @var  IndexSuspenderFactory */
-    private $indexSuspenderFactory;
+    /** @var  DeltaIndexSuspenderFactory */
+    private $deltaIndexSuspenderFactory;
 
     /**
+     * @param CollectionFactory $collectionFactory
      * @param ViewCollectionFactory $viewCollectionFactory
-     * @param IndexSuspenderFactory $indexSuspenderFactory
+     * @param DeltaIndexSuspenderFactory $deltaIndexSuspenderFactory
      */
     public function __construct(
+        CollectionFactory $collectionFactory,
         ViewCollectionFactory $viewCollectionFactory,
-        IndexSuspenderFactory $indexSuspenderFactory
+        DeltaIndexSuspenderFactory $deltaIndexSuspenderFactory
     ) {
+        $this->deltaIndexSuspenderCollection = $collectionFactory->create();
         $this->viewCollection = $viewCollectionFactory->create();
-        $this->indexSuspenderFactory = $indexSuspenderFactory;
+        $this->deltaIndexSuspenderFactory = $deltaIndexSuspenderFactory;
     }
 
     /**
-     * @return IndexSuspender
-     */
-    public function getNewIndexSuspender()
-    {
-        return $this->indexSuspenderFactory->create();
-    }
-
-    /**
-     * @param $type
      * @return bool
      */
-    public function isIndexSuspended($type)
+    public function isDeltaIndexerSuspended()
     {
-        return $this->getNewIndexSuspender()->setType($type)->isLocked();
+        $collection = $this->deltaIndexSuspenderCollection->load();
+
+        return (bool)count($collection);
+    }
+
+    /**
+     * @return DeltaIndexSuspender
+     */
+    public function getNewDeltaIndexSuspender()
+    {
+        return $this->deltaIndexSuspenderFactory->create();
     }
 
     /**
@@ -125,5 +134,13 @@ class SuspendManager
         }
 
         return $allViews;
+    }
+    
+    /**
+     * Clears all suspenders from all processes.
+     */
+    public function resumeAll()
+    {
+        $this->deltaIndexSuspenderCollection->deleteAll();
     }
 }

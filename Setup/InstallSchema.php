@@ -38,8 +38,8 @@ class InstallSchema implements InstallSchemaInterface
     {
         $setup->startSetup();
 
-        $table = $setup->getConnection()->newTable($setup->getTable('techdivision_index_suspended'))->addColumn(
-            'index_suspender_id',
+        $table = $setup->getConnection()->newTable($setup->getTable(Constants::DB_TABLE_NAME))->addColumn(
+            IndexSuspenderInterface::INDEX_SUSPENDER_ID,
             Table::TYPE_SMALLINT,
             null,
             ['nullable' => false, 'identity' => true, 'primary' => true, 'unsigned' => true],
