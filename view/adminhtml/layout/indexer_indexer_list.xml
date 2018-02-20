@@ -12,16 +12,15 @@
  *
  * @category   TechDivision
  * @package    TechDivision_IndexSuspender
- * @subpackage etc
+ * @subpackage layout
  * @copyright  Copyright (c) 2018 TechDivision GmbH (http://www.techdivision.com)
  * @link       http://www.techdivision.com/
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="TechDivision_IndexSuspender" setup_version="0.3.0">
-        <sequence>
-            <module name="Magento_Indexer" />
-            <module name="Magento_Cron" />
-        </sequence>
-    </module>
-</config>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="TechDivision\IndexSuspender\Block\Indexer" name="suspend.block.indexer" template="indexflush.phtml" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -16,12 +16,15 @@ namespace TechDivision\IndexSuspender\Api;
  * @category   TechDivision
  * @package    IndexSuspender
  * @subpackage Api
- * @copyright  Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * @copyright  Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
 interface IndexSuspenderInterface
 {
+    /**
+     * Holds the table's primary key name
+     */
     const INDEX_SUSPENDER_ID = 'index_suspender_id';
 
     /**

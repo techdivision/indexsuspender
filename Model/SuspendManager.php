@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -23,18 +23,23 @@ use Magento\Framework\Mview\ViewInterface;
  * @category   TechDivision
  * @package    IndexSuspender
  * @subpackage Model
- * @copyright  Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * @copyright  Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
 class SuspendManager
 {
+    /**
+     * Holds the max sql int value possible
+     */
     const SQL_INT_MAX = 4294967295;
 
     /** @var  Collection */
     private $deltaIndexSuspenderCollection;
+
     /** @var  ViewCollection */
     private $viewCollection;
+
     /** @var  DeltaIndexSuspenderFactory */
     private $deltaIndexSuspenderFactory;
 
