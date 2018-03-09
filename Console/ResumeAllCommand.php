@@ -28,9 +28,6 @@ use TechDivision\IndexSuspender\Model\ResourceModel\DeltaIndexSuspender\Collecti
  */
 class ResumeAllCommand extends Command
 {
-    /**
-     * Holds the command name
-     */
     const COMMAND_NAME = 'suspend:index:resume-all';
 
     /** @var  Collection */

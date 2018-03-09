@@ -29,9 +29,7 @@ use Magento\Framework\Mview\ViewInterface;
  */
 class SuspendManager
 {
-    /**
-     * Holds the max sql int value possible
-     */
+    /* Holds the max sql int value possible */
     const SQL_INT_MAX = 4294967295;
 
     /** @var  Collection */
@@ -78,6 +76,8 @@ class SuspendManager
 
     /**
      * Flush all active changelog tables and reset according mview status.
+     *
+     * @throws \Exception
      */
     public function flushAll()
     {
@@ -88,6 +88,7 @@ class SuspendManager
      * Flush given active changelog tables and reset according mview status.
      *
      * @param string|string[] $viewCodes
+     * @throws \Exception
      */
     public function flush($viewCodes = [])
     {

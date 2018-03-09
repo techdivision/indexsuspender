@@ -27,7 +27,7 @@ use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
 class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterface
 {
     /**
-     * @var [] Holds the indexer job codes which have to be suspended
+     * @var string[] Holds the indexer job codes which have to be suspended
      */
     private $jobCodesToSuspend = [
         'indexer_reindex_all_invalid',
@@ -52,7 +52,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
     }
 
     /**
-     * In any case of destruction, resume all indexers
+     * In any case of destruction, resume all indexers created by the current process
      */
     public function __destruct()
     {
@@ -64,7 +64,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
     /**
      * Returns the job codes to be suspended
      *
-     * @return []
+     * @return string[]
      */
     public function getJobCodesToSuspend()
     {
@@ -72,7 +72,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
     }
 
     /**
-     * Suspends the job code
+     * Suspends all registerd jobs
      */
     public function suspend()
     {
@@ -82,7 +82,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
     }
 
     /**
-     * Resumes the job code
+     * Resumes job execution
      */
     public function resume()
     {

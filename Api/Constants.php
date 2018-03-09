@@ -22,8 +22,5 @@ namespace TechDivision\IndexSuspender\Api;
  */
 interface Constants
 {
-    /**
-     * Holds db table name
-     */
     const DB_TABLE_NAME = 'techdivision_index_suspended';
 }

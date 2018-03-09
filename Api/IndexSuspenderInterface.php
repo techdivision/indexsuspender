@@ -22,9 +22,7 @@ namespace TechDivision\IndexSuspender\Api;
  */
 interface IndexSuspenderInterface
 {
-    /**
-     * Holds the table's primary key name
-     */
+    /* Holds the table's primary key name */
     const INDEX_SUSPENDER_ID = 'index_suspender_id';
 
     /**
