@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -24,7 +24,7 @@ use TechDivision\IndexSuspender\Api\Constants;
  *
  * @package     TechDivision\IndexSuspender\Setup
  * @file        InstallSchema.php
- * @copyright   Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
+ * @copyright   Copyright (c) 2018 TechDivision GmbH (http://www.techdivision.com)
  * @site        https://www.techdivision.com/
  * @author      David Führ <d.fuehr@techdivision.com>
  */

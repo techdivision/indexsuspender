@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -20,18 +20,28 @@ use TechDivision\IndexSuspender\Api\IndexSuspenderInterface;
 /**
  * @category   Hallhuber
  * @package    Custom
- * @copyright  Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
+ * @copyright  Copyright (c) 2018 TechDivision GmbH (http://www.techdivision.com)
  * @link       http://www.techdivision.com/
  * @author     Vadim Justus <v.justus@techdivision.com>
  */
 class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterface
 {
+    /**
+     * @var string[] Holds the indexer job codes which have to be suspended
+     */
     private $jobCodesToSuspend = [
         'indexer_reindex_all_invalid',
         'indexer_update_all_views',
         'indexer_clean_all_changelogs',
     ];
 
+    /**
+     * DeltaIndexSuspender constructor.
+     * @param Context $context
+     * @param Registry $registry
+     * @param ResourceModel\DeltaIndexSuspender $resource
+     * @param ResourceModel\DeltaIndexSuspender\Collection $resourceCollection
+     */
     public function __construct(
         Context $context,
         Registry $registry,
@@ -41,6 +51,9 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
         parent::__construct($context, $registry, $resource, $resourceCollection);
     }
 
+    /**
+     * In any case of destruction, resume all indexers created by the current process
+     */
     public function __destruct()
     {
         if ($this->getData('createdByCurrentProcess')) {
@@ -48,11 +61,19 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
         }
     }
 
+    /**
+     * Returns the job codes to be suspended
+     *
+     * @return string[]
+     */
     public function getJobCodesToSuspend()
     {
         return $this->jobCodesToSuspend;
     }
 
+    /**
+     * Suspends all registerd jobs
+     */
     public function suspend()
     {
         $this->setData('active', true);
@@ -60,6 +81,9 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
         $this->getResource()->save($this);
     }
 
+    /**
+     * Resumes job execution
+     */
     public function resume()
     {
         if (!$this->isDeleted()) {
