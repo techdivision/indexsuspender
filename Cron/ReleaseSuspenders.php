@@ -53,6 +53,6 @@ class ReleaseSuspenders
     public function execute()
     {
         $period = $this->scopeConfig->getValue(self::CONFIG_RELEASE_PERIOD);
-        $this->suspenderCollection->deleteBefore($period);
+        $this->suspenderCollection->deleteOlderThan($period);
     }
 }

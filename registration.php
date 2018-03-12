@@ -2,7 +2,7 @@
 /**
  * TechDivision\IndexSuspender
  *
- * Copyright (c) 2016 TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany

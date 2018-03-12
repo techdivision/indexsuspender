@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -22,7 +22,7 @@ use TechDivision\IndexSuspender\Model\SuspendManager;
  * @category   TechDivision
  * @package    IndexSuspender
  * @subpackage Plugin
- * @copyright  Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * @copyright  Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
@@ -30,8 +30,10 @@ class DeltaIndexerPlugin
 {
     /** @var SuspendManager */
     private $suspendManager;
+
     /** @var Config  */
     private $config;
+
     /** @var DeltaIndexSuspender  */
     private $deltaIndexSuspender;
 

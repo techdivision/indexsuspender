@@ -48,8 +48,9 @@ class Collection extends AbstractCollection
 
     /**
      * Delete all entities older than given period from database.
+     * @param string $period
      */
-    public function deleteBefore($period)
+    public function deleteOlderThan($period)
     {
         $timestamp = date('Y-m-d H:i:s', strtotime("-$period"));
         $this->getConnection()->delete($this->getMainTable(), ['created_at <= ?' => $timestamp]);
