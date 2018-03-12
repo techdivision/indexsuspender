@@ -25,9 +25,13 @@
                     <label>Enable module</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="enable_delta" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="0">
+                <field id="enable_delta" translate="label" type="select" sortOrder="20" showInDefault="1" canRestore="0">
                     <label>Enable suspending of DeltaIndex</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="release_suspender_period" translate="label" type="text" sortOrder="30" showInDefault="1" canRestore="0">
+                    <label>Release Suspenders after given period</label>
+                    <comment>e.g. 12 hours (default)</comment>
                 </field>
             </group>
         </section>

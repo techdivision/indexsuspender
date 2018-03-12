@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 TechDivision GmbH
+ * Copyright (c) 2018 TechDivision GmbH
  * All rights reserved
  *
  * This product includes proprietary software developed at TechDivision GmbH, Germany
@@ -21,7 +21,7 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
  * @category   TechDivision
  * @package    IndexSuspender
  * @subpackage Model
- * @copyright  Copyright (c) 2017 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
+ * @copyright  Copyright (c) 2018 TechDivision GmbH <info@techdivision.com> - TechDivision GmbH
  * @link       http://www.techdivision.com/
  * @author     David Führ <d.fuehr@techdivision.com>
  */
@@ -30,6 +30,9 @@ class Collection extends AbstractCollection
     /** @var string */
     protected $_idFieldName = IndexSuspenderInterface::INDEX_SUSPENDER_ID;
 
+    /**
+     * Internal constructor
+     */
     protected function _construct()
     {
         $this->_init(DeltaIndexSuspender::class, DeltaIndexSuspenderResource::class);
@@ -41,5 +44,14 @@ class Collection extends AbstractCollection
     public function deleteAll()
     {
         $this->getConnection()->delete($this->getMainTable());
+    }
+
+    /**
+     * Delete all entities older than given period from database.
+     */
+    public function deleteBefore($period)
+    {
+        $timestamp = date('Y-m-d H:i:s', strtotime("-$period"));
+        $this->getConnection()->delete($this->getMainTable(), ['created_at <= ?' => $timestamp]);
     }
 }

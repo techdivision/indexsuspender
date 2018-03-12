@@ -15,6 +15,7 @@
             <general>
                 <enable>1</enable>
                 <enable_delta>1</enable_delta>
+                <release_suspender_period>12 hours</release_suspender_period>
             </general>
         </techdivision_indexsuspender>
     </default>
