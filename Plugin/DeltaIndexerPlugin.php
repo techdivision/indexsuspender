@@ -31,10 +31,10 @@ class DeltaIndexerPlugin
     /** @var SuspendManager */
     private $suspendManager;
 
-    /** @var Config  */
+    /** @var Config */
     private $config;
 
-    /** @var DeltaIndexSuspender  */
+    /** @var DeltaIndexSuspender */
     private $deltaIndexSuspender;
 
     /**
@@ -54,26 +54,66 @@ class DeltaIndexerPlugin
 
     /**
      * @param Schedule $subject
+     *
      * @throws PreventJobExecutionException
      */
     public function beforeTryLockJob(Schedule $subject)
     {
         if ($this->shouldSuspendCronJob($subject)) {
             $subject->setStatus(Schedule::STATUS_MISSED);
-            throw new PreventJobExecutionException(__('TechDivision IndexSuspender cancelled job execution.'));
+            throw new PreventJobExecutionException(
+                __('TechDivision IndexSuspender cancelled job execution. Indexing suspended.')
+            );
+        }
+
+        if ($this->shouldSkipExecution($subject)) {
+            $subject->setStatus(Schedule::STATUS_MISSED);
+            throw new PreventJobExecutionException(
+                __('TechDivision IndexSuspender cancelled job execution. Another process is still running.')
+            );
         }
     }
 
     /**
      * @param Schedule $subject
+     *
      * @return bool
      */
     private function shouldSuspendCronJob(Schedule $subject)
     {
         $featureActive = $this->config->getDeltaIndexerEnabled();
         $suspended = $this->suspendManager->isDeltaIndexerSuspended();
-        $deltaIndexerJob = in_array($subject->getJobCode(), $this->deltaIndexSuspender->getJobCodesToSuspend(), false);
+        $deltaIndexerJob = $this->isIndexerCronJob($subject);
 
         return $featureActive && $suspended && $deltaIndexerJob;
+    }
+
+    /**
+     * @param Schedule $schedule
+     *
+     * @return bool
+     */
+    private function isIndexerCronJob(Schedule $schedule)
+    {
+        return \in_array($schedule->getJobCode(), $this->deltaIndexSuspender->getJobCodesToSuspend(), false);
+    }
+
+    /**
+     * @param Schedule $subject
+     *
+     * @return bool
+     */
+    private function shouldSkipExecution(Schedule $subject)
+    {
+        $shouldSkip = false;
+        if ($this->isIndexerCronJob($subject)) {
+            $collection = $subject->getCollection();
+            $collection->addFieldToFilter('status', Schedule::STATUS_RUNNING);
+            $collection->addFieldToFilter('job_code', $subject->getJobCode());
+
+            $shouldSkip = (bool)count($collection);
+        }
+
+        return $shouldSkip;
     }
 }
