@@ -8,7 +8,7 @@ see [Wiki](https://gitlab.ci.magento2.tdintern.de/techdivision/indexsuspender/wi
 
 ```
 composer config repositories.techdivision.indexsuspender vcs ssh://git@gitlab.ci.magento2.tdintern.de:10022/techdivision/indexsuspender.git
-composer require techdivision/process-pipelines 
+composer require techdivision/indexsuspender 
 ```
 
 
