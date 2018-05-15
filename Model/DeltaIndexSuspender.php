@@ -72,7 +72,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
     }
 
     /**
-     * Suspends all registerd jobs
+     * Suspends all registered jobs
      */
     public function suspend()
     {
@@ -89,5 +89,15 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
         if (!$this->isDeleted()) {
             $this->getResource()->delete($this);
         }
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \Exception
+     */
+    public function suspendExternal($externalKey)
+    {
+        $this->setData('externalkey', $externalKey);
+        $this->getResource()->save($this);
     }
 }

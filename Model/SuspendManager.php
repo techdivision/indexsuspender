@@ -75,6 +75,17 @@ class SuspendManager
     }
 
     /**
+     * @param $externalKey
+     * @return DeltaIndexSuspender
+     */
+    public function getDeltaIndexSuspenderByExternalKey($externalKey)
+    {
+        $suspender = $this->deltaIndexSuspenderFactory->create();
+        $suspender->load($externalKey, 'externalkey');
+        return $suspender;
+    }
+
+    /**
      * Flush all active changelog tables and reset according mview status.
      *
      * @throws \Exception
