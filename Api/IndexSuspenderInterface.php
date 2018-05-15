@@ -38,4 +38,13 @@ interface IndexSuspenderInterface
      * @return void
      */
     public function resume();
+
+    /**
+     * Suspends all related indexing processes.
+     *
+     * @param string $externalKey
+     * @return void
+     */
+    public function suspendExternal($externalKey);
+
 }

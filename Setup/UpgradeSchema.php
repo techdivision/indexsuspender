@@ -34,9 +34,15 @@ class UpgradeSchema implements UpgradeSchemaInterface
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
+
         if (version_compare($context->getVersion(), '0.3.0', '<')) {
             $this->addDatetimeColumnToSuspenderTable($setup);
         }
+
+        if (version_compare($context->getVersion(), '0.4.0', '<')) {
+            $this->addExternalKeyColumnToSuspenderTable($setup);
+        }
+
         $setup->endSetup();
     }
 
@@ -54,6 +60,23 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'nullable' => false,
                 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT,
                 'comment' => 'Created At'
+            ]
+        );
+    }
+
+    /**
+     * @param SchemaSetupInterface $setup
+     * @return void
+     */
+    protected function addExternalKeyColumnToSuspenderTable(SchemaSetupInterface $setup)
+    {
+        $setup->getConnection()->addColumn(
+            $setup->getTable(Constants::DB_TABLE_NAME),
+            'externalkey',
+            [
+                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                'length' => 100,
+                'comment' => 'Key or ID for external use (eg. Pipelines)'
             ]
         );
     }
