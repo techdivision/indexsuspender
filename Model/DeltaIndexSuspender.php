@@ -53,6 +53,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
 
     /**
      * In any case of destruction, resume all indexers created by the current process
+     * @throws \Exception
      */
     public function __destruct()
     {
@@ -73,6 +74,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
 
     /**
      * Suspends all registered jobs
+     * @throws \Exception
      */
     public function suspend()
     {
@@ -83,6 +85,7 @@ class DeltaIndexSuspender extends AbstractModel implements IndexSuspenderInterfa
 
     /**
      * Resumes job execution
+     * @throws \Exception
      */
     public function resume()
     {
