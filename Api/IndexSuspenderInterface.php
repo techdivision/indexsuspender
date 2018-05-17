@@ -27,6 +27,7 @@ interface IndexSuspenderInterface
 
     /**
      * Suspends all related indexing processes.
+     * If the request / cli process finishes, the suspender will be removed automatically.
      *
      * @return void
      */
@@ -41,6 +42,7 @@ interface IndexSuspenderInterface
 
     /**
      * Suspends all related indexing processes.
+     * If the request / cli process finishes, the suspender will not be removed automatically.
      *
      * @param string $externalKey
      * @return void
