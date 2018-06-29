@@ -48,3 +48,9 @@ suspend
 You can see and unlock given indexer locks within the `Index Management` tab.
 
 ![Backend integration](assets/backend-integration.png)
+
+## Installation
+
+```
+composer require techdivision/indexsuspender 
+```
