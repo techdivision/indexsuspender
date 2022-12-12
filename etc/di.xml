@@ -22,6 +22,9 @@
     <!-- Add modules functionality to indexer:reindex command -->
     <preference for="Magento\Indexer\Console\Command\IndexerReindexCommand" type="TechDivision\IndexSuspender\Console\IndexerReindexCommand"/>
 
+    <preference for="TechDivision\IndexSuspender\Api\IndexSuspenderInterface"
+                type="TechDivision\IndexSuspender\Model\DeltaIndexSuspender"/>
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
