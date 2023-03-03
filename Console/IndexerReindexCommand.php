@@ -29,8 +29,11 @@ use TechDivision\IndexSuspender\Model\DeltaIndexSuspenderFactory;
  */
 class IndexerReindexCommand extends CoreIndexerReindexCommand
 {
-    /** @var  DeltaIndexSuspender */
-    private $deltaIndexSuspender;
+    /** @var DeltaIndexSuspenderFactory */
+    private $deltaIndexSuspenderFactory;
+
+    /** @var ?DeltaIndexSuspender */
+    private $deltaIndexSuspender = null;
 
     /**
      * @param ObjectManagerFactory $objectManagerFactory
@@ -41,7 +44,7 @@ class IndexerReindexCommand extends CoreIndexerReindexCommand
         DeltaIndexSuspenderFactory $deltaIndexSuspenderFactory
     ) {
         parent::__construct($objectManagerFactory);
-        $this->deltaIndexSuspender = $deltaIndexSuspenderFactory->create();
+        $this->deltaIndexSuspenderFactory = $deltaIndexSuspenderFactory;
     }
 
     /**
@@ -49,6 +52,10 @@ class IndexerReindexCommand extends CoreIndexerReindexCommand
      */
     public function getDeltaIndexSuspender()
     {
+        if ($this->deltaIndexSuspender === null) {
+            $this->deltaIndexSuspender = $this->deltaIndexSuspenderFactory->create();
+        }
+
         return $this->deltaIndexSuspender;
     }
 
@@ -61,9 +68,10 @@ class IndexerReindexCommand extends CoreIndexerReindexCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->deltaIndexSuspender->suspend();
+        $deltaIndexSuspender = $this->getDeltaIndexSuspender();
+        $deltaIndexSuspender->suspend();
         $returnCode = parent::execute($input, $output);
-        $this->deltaIndexSuspender->resume();
+        $deltaIndexSuspender->resume();
 
         return $returnCode;
     }
